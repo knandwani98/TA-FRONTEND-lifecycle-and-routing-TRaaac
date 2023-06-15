@@ -1,33 +1,58 @@
 import React, { Component } from "react";
-import Card from "./Component/Card";
 import Loader from "./Component/Loader";
+import Card from "./Component/Card";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isActive: "user",
       person: null,
     };
   }
 
-  componentDidMount = () => {
+  handleHover = (state) => {
+    this.setState({
+      isActive: state,
+    });
+  };
+
+  handleNoHover = () => {
+    this.setState({
+      isActive: "user",
+    });
+  };
+
+  handleRefresh = () => {
+    window.location.reload(true);
+  };
+
+  componentDidMount() {
     fetch("https://randomuser.me/api/")
       .then((res) => res.json())
-      .then((person) => this.setState({ person: person.results[0] }));
-  };
+      .then((data) => {
+        this.setState({
+          person: data.results[0],
+        });
+      });
+  }
 
   render() {
     if (!this.state.person) {
       return <Loader />;
     }
 
-    console.log(this.state.person);
     return (
       <>
         <div className="black half"></div>
         <div className="card-container flex ">
-          <Card person={this.state.person} />
+          <Card
+            state={this.state}
+            handleRefresh={this.handleRefresh}
+            handleHover={this.handleHover}
+            handleNoHover={this.handleNoHover}
+          />
         </div>
         <div className="white half"></div>
       </>
