@@ -202,7 +202,7 @@ body {
     padding: 2rem;
 
     h3 {
-      padding: 1rem 0;
+      padding: 0.5rem 0;
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -226,11 +226,15 @@ body {
 
     .icons {
       width: 70%;
-      margin: 2rem auto;
+      margin: 0 auto;
       font-size: 2rem;
 
-      i:hover {
-        color: lightskyblue;
+      i {
+        padding: 2rem;
+        &:hover,
+        &.active {
+          color: lightskyblue;
+        }
       }
     }
   }
